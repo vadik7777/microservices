@@ -1,0 +1,38 @@
+version: '3'
+services:
+  app:
+    build:
+      context: ./homework17
+      dockerfile: Dockerfile
+    privileged: true
+    environment:
+      - SPRING_CLOUD_CONFIG_URI=http://configserver:5000
+    ports:
+      - "8080:8080"
+    depends_on:
+      - configserver
+      - postgres
+    restart: on-failure
+    networks:
+      - nw
+  configserver:
+    build:
+      context: ./config-server
+      dockerfile: Dockerfile
+    privileged: true
+    ports:
+      - ":5000"
+    networks:
+      - nw
+  postgres:
+    image: "postgres:latest"
+    ports:
+      - ":5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=db
+    networks:
+      - nw
+networks:
+  nw:

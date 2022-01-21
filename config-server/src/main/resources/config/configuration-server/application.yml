@@ -1,0 +1,18 @@
+spring:
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:config/{application}
+
+#    bus:
+#      enabled: true
+#      refresh:
+#        enabled: true
+#  rabbitmq:
+#    host: localhost
+#    port: 5672
+#    username: root
+#    password: root
