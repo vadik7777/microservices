@@ -13,4 +13,5 @@ RUN mkdir -p $PROJECT_DIR
 WORKDIR $PROJECT_DIR
 COPY --from=build $PROJECT_DIR/target/homework17.jar $PROJECT_DIR/
 EXPOSE 8080
-CMD ["java", "-jar", "/opt/project/homework17.jar"]
+COPY ./run_app.sh /run_app.sh
+ENTRYPOINT ["/bin/bash", "-c", "/run_app.sh"]
